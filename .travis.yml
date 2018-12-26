@@ -3,6 +3,8 @@ jdk: openjdk8
 before_install:
   - wget https://raw.githubusercontent.com/markoambrozic/rso/master/pom.xml
   - mv pom.xml ../pom.xml
+  - pwd
+  - ls
 install:
   - mvn -N io.takari:maven:wrapper
   - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
