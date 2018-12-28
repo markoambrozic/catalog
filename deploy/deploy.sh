@@ -5,4 +5,5 @@ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/
 sudo apt-get update
 sudo apt-get install -y kubectl
 export KUBECONFIG=$(pwd)/conf/kube-config-mil01-RSO.yml
+echo $KUBECONFIG
 kubectl get pods
