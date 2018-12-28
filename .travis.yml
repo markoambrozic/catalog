@@ -5,6 +5,15 @@ before_install:
 install:
   - mvn -N io.takari:maven:wrapper
   - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+before_deploy:
+  - cd deploy
+  - chmod +x ./deploy.sh
+deploy:
+  provider: script
+  script: deploy.sh
+  on:
+    repo: markoambrozic/catalog
+    branch: master
 cache:
   directories:
     - $HOME/.m2
