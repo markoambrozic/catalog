@@ -7,6 +7,7 @@ before_install:
 install:
   - mvn -N io.takari:maven:wrapper
   - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t markoambrozic/catalog:1.0.1 .
   - docker push markoambrozic/catalog
 before_deploy:
