@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="catalog">
+    <Appenders>
+        <Socket name="socket" host="9a652db0-2ace-4cf1-8010-1a632628f467-ls.logit.io" port="12735">
+            <JsonLayout properties="true"/>
+        </Socket>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="socket"/>
+        </Root>
+    </Loggers>
+</Configuration>
