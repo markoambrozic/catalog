@@ -19,3 +19,10 @@ spec:
           image: markoambrozic/catalog:1.0.1
           ports:
             - containerPort: 8080
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://postgres:5432/postgres
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: dbuser
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              value: postgres
