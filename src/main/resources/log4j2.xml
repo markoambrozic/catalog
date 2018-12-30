@@ -11,9 +11,9 @@
     <Loggers>
         <!-- Default logger -->
         <Root level="all">
-            <AppenderRef ref="socket" level="all"/>
-            <!--AppenderRef ref="socket" level="error"/>
-            <AppenderRef ref="socket" level="info"/-->
+            <AppenderRef ref="socket" level="trace"/>
+            <AppenderRef ref="socket" level="error"/>
+            <AppenderRef ref="console" level="info"/>
 
         </Root>
     </Loggers>
