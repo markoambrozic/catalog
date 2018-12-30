@@ -3,6 +3,7 @@ package com.kumuluz.ee.samples.microservices.simple;
 import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.samples.microservices.simple.Models.Product;
+import com.kumuluz.ee.samples.microservices.simple.Interceptors.LogContextInterceptor;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import com.kumuluz.ee.logs.cdi.LogParams;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Log(LogParams.METRICS)
+@Log
 public class ProductsResource {
 
     @PersistenceContext
@@ -33,9 +34,7 @@ public class ProductsResource {
         TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
 
         List<Product> products = query.getResultList();
-
-        LOG.info("Query debug: {}", query);
-
+        
         return Response.ok(products).build();
     }
 
