@@ -42,12 +42,12 @@ public class ProductsResource {
     @Path("/{id}")
     public Response getProduct(@PathParam("id") Integer id) {
 
-        Product b = em.find(Product.class, id);
+        Product p = em.find(Product.class, id);
 
-        if (b == null)
+        if (p == null)
             return Response.status(Response.Status.NOT_FOUND).build();
 
-        return Response.ok(b).build();
+        return Response.ok(p).build();
     }
 
     @POST
@@ -62,5 +62,36 @@ public class ProductsResource {
         em.getTransaction().commit();
 
         return Response.status(Response.Status.CREATED).entity(p).build();
+    }
+
+    @PUT
+    public Response updateProduct(Product p) {
+
+        int id = p.getId();
+
+        em.getTransaction().begin();
+
+        Product pUpdate = em.find(Product.class, id);
+        pUpdate.setName(p.getName());
+        pUpdate.setDescription(p.getDescription());
+        pUpdate.setPrice(p.getPrice());
+
+        em.persist(pUpdate);
+
+        em.getTransaction().commit();
+
+        return Response.status(Response.Status.FOUND).entity(pUpdate).build();
+    }
+
+    @DELETE
+    public Response deleteProduct(Product p) {
+        em.getTransaction().begin();
+
+        p = em.find(Product.class, p.getId());
+        em.remove(p);
+
+        em.getTransaction().commit();
+
+        return Response.status(Response.Status.OK).build();
     }
 }
