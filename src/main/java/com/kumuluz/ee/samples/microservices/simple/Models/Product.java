@@ -18,6 +18,10 @@ public class Product {
 
     private double price;
 
+    private String ean;
+
+    private String additionalInfo;
+
     public Integer getId() {
         return id;
     }
@@ -49,4 +53,12 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public void setEan(String ean) { this.ean = ean; }
+
+    public String getEan() { return this.ean; }
+
+    public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
+
+    public String getAdditionalInfo() { return this.additionalInfo; }
 }

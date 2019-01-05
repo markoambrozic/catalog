@@ -12,9 +12,20 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import com.kumuluz.ee.logs.cdi.Log;
 import com.kumuluz.ee.logs.cdi.LogParams;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONObject;
 
 @Path("/products")
 @RequestScoped
@@ -47,7 +58,33 @@ public class ProductsResource {
         if (p == null)
             return Response.status(Response.Status.NOT_FOUND).build();
 
+        String ean = p.getEan();
+        p.setAdditionalInfo(getAdditionalProductInfo(ean));
+
         return Response.ok(p).build();
+    }
+
+    @GET
+    @Path("/additionalInfo/{id}")
+    public Response getProductAdditionalInfo(@PathParam("id") Integer id) {
+
+        Product p = em.find(Product.class, id);
+        String ean = p.getEan();
+
+        return Response.ok(getAdditionalProductInfo(ean)).build();
+    }
+
+    private String getAdditionalProductInfo(String ean) {
+        try {
+            HttpResponse<JsonNode> response = Unirest.get("https://mignify.p.rapidapi.com/gtins/v1.0/productsToGtin?gtin="+ean)
+                    .header("X-RapidAPI-Key", "dcae760143mshc50cc7f3978025ep12837cjsn0d9e3d839a0d")
+                    .asJson();
+            return response.getBody().toString();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 
     @POST
