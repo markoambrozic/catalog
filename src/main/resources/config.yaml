@@ -1,4 +1,8 @@
 kumuluzee:
+  metrics:
+    web-instrumentation:
+      - name: info-endpoint
+        url-pattern: /info
   datasources:
     - jndi-name: jdbc/BooksDS
       connection-url: jdbc:postgresql://postgres:5432/postgres
