@@ -29,6 +29,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import javax.inject.Inject;
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import java.util.Optional;
 
 @Path("/info")
 @RequestScoped
@@ -38,6 +41,10 @@ public class InfoResource {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    @DiscoverService(value = "order-service", environment = "dev", version = "*")
+    private Optional<String> basePath;
 
     @GET
     public Response getInfo() {
@@ -49,7 +56,7 @@ public class InfoResource {
         obj.put("github", new String[] {"https://github.com/rso-team2/catalog", "https://github.com/rso-team2/orders"});
         obj.put("travis", new String[] {"https://travis-ci.com/markoambrozic/catalog", "https://travis-ci.com/markoambrozic/orders"});
         obj.put("dockerhub", new String[] {"https://hub.docker.com/r/markoambrozic/catalog/", "https://hub.docker.com/r/markoambrozic/orders/"});
-
+        obj.put("testcontent",basePath.get());
         return Response.ok(obj.toString()).build();
     }
 }
