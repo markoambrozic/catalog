@@ -131,4 +131,16 @@ public class ProductsResource {
 
         return Response.status(Response.Status.OK).build();
     }
+
+    @GET
+    @Path("/getProductQty/productId/{productId}")
+    public Response getProductQty(@PathParam("productId") Integer productId) {
+        Product p = em.find(Product.class, productId);
+        int qty = p.getQty();
+
+        JSONObject qtyJSON = new JSONObject();
+        qtyJSON.put("qty", qty);
+
+        return Response.ok(qtyJSON.toString()).build();
+    }
 }

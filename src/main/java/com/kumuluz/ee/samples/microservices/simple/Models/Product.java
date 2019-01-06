@@ -22,6 +22,8 @@ public class Product {
 
     private String additionalInfo;
 
+    private int qty;
+
     public Integer getId() {
         return id;
     }
@@ -61,4 +63,8 @@ public class Product {
     public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
 
     public String getAdditionalInfo() { return this.additionalInfo; }
+
+    public void setQty(int qty) { this.qty = qty; }
+
+    public int getQty() { return this.qty; }
 }

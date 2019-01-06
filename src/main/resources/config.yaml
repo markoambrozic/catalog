@@ -1,4 +1,8 @@
 kumuluzee:
+  name: catalog-service
+  env:
+    name: dev
+  version: 1.0.0
   metrics:
     web-instrumentation:
       - name: info-endpoint
