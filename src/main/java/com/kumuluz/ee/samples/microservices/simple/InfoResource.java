@@ -46,6 +46,10 @@ public class InfoResource {
     @DiscoverService(value = "order-service", environment = "dev", version = "*")
     private Optional<String> basePath;
 
+    @Inject
+    @DiscoverService(value = "cart-service", environment = "dev", version = "*")
+    private Optional<String> otherPath;
+
     @GET
     public Response getInfo() {
         JSONObject obj = new JSONObject();
@@ -56,7 +60,8 @@ public class InfoResource {
         obj.put("github", new String[] {"https://github.com/rso-team2/catalog", "https://github.com/rso-team2/orders"});
         obj.put("travis", new String[] {"https://travis-ci.com/markoambrozic/catalog", "https://travis-ci.com/markoambrozic/orders"});
         obj.put("dockerhub", new String[] {"https://hub.docker.com/r/markoambrozic/catalog/", "https://hub.docker.com/r/markoambrozic/orders/"});
-        obj.put("testcontent",basePath.get());
+        obj.put("order-service",basePath.get());
+        obj.put("cart-service",otherPath.get());
         return Response.ok(obj.toString()).build();
     }
 }
