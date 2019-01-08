@@ -13,3 +13,6 @@ kumuluzee:
       username: dbuser
       password: postgres
       max-pool-size: 20
+catalog:
+  rapid-api-key: dcae760143mshc50cc7f3978025ep12837cjsn0d9e3d839a0d
+  rapid-api-url: https://mignify.p.rapidapi.com/gtins/v1.0/productsToGtin?gtin=

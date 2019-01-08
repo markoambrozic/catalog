@@ -26,6 +26,8 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
+import javax.inject.Inject;
+
 
 @Path("/products")
 @RequestScoped
@@ -38,6 +40,9 @@ public class ProductsResource {
     private EntityManager em;
 
     private static final Logger LOG = LogManager.getLogger(ProductsResource.class.getName());
+
+    @Inject
+    private CatalogProperties catalogProperties;
 
     @GET
     @Log
@@ -76,8 +81,11 @@ public class ProductsResource {
 
     private String getAdditionalProductInfo(String ean) {
         try {
-            HttpResponse<JsonNode> response = Unirest.get("https://mignify.p.rapidapi.com/gtins/v1.0/productsToGtin?gtin="+ean)
-                    .header("X-RapidAPI-Key", "dcae760143mshc50cc7f3978025ep12837cjsn0d9e3d839a0d")
+            System.out.println(catalogProperties.getRapidApiKey());
+            System.out.println(catalogProperties.getRapidApiUrl()+ean);
+
+            HttpResponse<JsonNode> response = Unirest.get(catalogProperties.getRapidApiUrl()+ean)
+                    .header("X-RapidAPI-Key", catalogProperties.getRapidApiKey())
                     .asJson();
             return response.getBody().toString();
         } catch (UnirestException e) {

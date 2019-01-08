@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: catalog
-          image: markoambrozic/catalog:1.0.10
+          image: markoambrozic/catalog:1.0.11
           ports:
             - containerPort: 8080
           env:
