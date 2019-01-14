@@ -20,6 +20,7 @@
 */
 package com.kumuluz.ee.samples.microservices.simple;
 
+import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.json.JSONObject;
 
 import javax.enterprise.context.RequestScoped;
@@ -48,9 +49,12 @@ public class InfoResource {
 
     @Inject
     @DiscoverService(value = "cart-service", environment = "dev", version = "*")
+
     private Optional<String> otherPath;
 
+
     @GET
+    @Metered(name = "get-info")
     public Response getInfo() {
         JSONObject obj = new JSONObject();
 
